@@ -29,3 +29,15 @@ def create_message(db: Session, message: schemas.MessageCreate):
     db.commit()
     db.refresh(db_message)
     return db_message
+
+def create_session_register(db: Session, session: schemas.SessionsCreate):
+    db_sessions = models.Sessions(
+        status=session.status,
+        owner_phone=session.owner_phone,
+        intance_id=session.intance_id,
+        momment=session.momment
+    )
+    db.add(db_sessions)
+    db.commit()
+    db.refresh(db_sessions)
+    return db_sessions

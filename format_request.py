@@ -2,7 +2,7 @@ from datetime import datetime
 
 class FormatMessage:
     def __init__(self, data) -> None:
-        self.contact_name = data.get('chatName')if data.get('chatName') else '?'
+        self.contact_name = data.get('chatName') if data.get('chatName') else '?'
         self.user_name = data.get('senderName') if data.get('senderName') else '?'
         self.client_phone = data.get('phone') if data.get('phone') else '?'
         self.owner_phone = data.get('connectedPhone') if data.get('connectedPhone') else '?'
@@ -19,4 +19,19 @@ class FormatMessage:
             "is_group":self.is_group,
             "from_client":self.from_client,
             "message_time":self.message_time,
+        }
+        
+class FormatSessions:
+    def __init__(self, data) -> None:
+        self.status = data.get('type') if data.get('type') else '?'
+        self.owner_phone = data.get('phone') if data.get('phone') else '?'
+        self.intance_id = data.get('instanceId') if data.get('instanceId') else '?'
+        self.momment = data.get('momment') if data.get('momment') else datetime.now()
+        
+    def session_fields(self):
+        return {
+            "status":self.status,
+            "owner_phone":self.owner_phone,
+            "intance_id":self.intance_id,
+            "momment":self.momment
         }

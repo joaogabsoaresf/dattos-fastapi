@@ -18,3 +18,18 @@ class Message(MessageBase):
     
     class Config:
         from_attributes = True
+        
+class SessionsBase(BaseModel):
+    status: str
+    owner_phone: str
+    intance_id: str
+    momment: datetime
+    
+class SessionsCreate(SessionsBase):
+    pass
+
+class Sessions(SessionsBase):
+    id: int
+    
+    class Config:
+        from_attributes = True

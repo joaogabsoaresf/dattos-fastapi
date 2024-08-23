@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from typing import Any, Dict
 import crud, models, schemas
 from database import SessionLocal, engine
-from format_request import FormatMessage
+from format_request import FormatMessage, FormatSessions
 
 load_dotenv()
 
@@ -51,3 +51,9 @@ def read_user(message_id: int, db: Session = Depends(get_db), token: str = Depen
     if db_message is None:
         raise HTTPException(status_code=404, detail="Message not found")
     return db_message
+
+@app.post("/sessions/", response_model=schemas.Sessions)
+def create_message(data: Dict[str, Any], db: Session = Depends(get_db), token: str = Depends(validate_api_token)):
+    session_data = FormatSessions(data).session_fields()
+    session = schemas.SessionsCreate(**session_data)
+    return crud.create_session_register(db=db, session=session)

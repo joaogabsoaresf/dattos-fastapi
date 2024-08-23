@@ -13,3 +13,12 @@ class Messages(Base):
     is_group = Column(Boolean,nullable=False,default=False)
     from_client = Column(Boolean,nullable=False,default=False)
     message_time = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
+
+class Sessions(Base):
+    __tablename__ = 'sessions'
+    
+    id = Column(Integer,primary_key=True,nullable=False)
+    status = Column(String,nullable=False)
+    owner_phone = Column(String,nullable=False)
+    intance_id = Column(String,nullable=False)
+    momment = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
