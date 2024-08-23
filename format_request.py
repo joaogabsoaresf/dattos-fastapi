@@ -5,6 +5,7 @@ class FormatMessage:
         self.client_phone = data.get('phone')
         self.owner_phone = data.get('connectedPhone')
         self.is_group = data.get('isGroup')
+        self.from_client = not data.get('fromMe')
         self.message_time = data.get('momment')
         
     def message_fields(self):
@@ -14,5 +15,6 @@ class FormatMessage:
             "client_phone":self.client_phone,
             "owner_phone":self.owner_phone,
             "is_group":self.is_group,
+            "from_client":self.from_client,
             "message_time":self.message_time,
         }

@@ -7,6 +7,7 @@ class MessageBase(BaseModel):
     client_phone: str
     owner_phone: str
     is_group: bool
+    from_client: bool
     message_time: datetime
     
 class MessageCreate(MessageBase):
