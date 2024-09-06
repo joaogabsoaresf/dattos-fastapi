@@ -6,8 +6,6 @@ import utils
 import time
 import random
 
-SERVICE_ACCOUNT = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
-
 class BigQueryClient:
     def __init__(self, table_id, dataset_id) -> None:
         self.client = self.get_client()
@@ -16,7 +14,7 @@ class BigQueryClient:
     
     def get_client(self):
         try:
-            client = bigquery.Client.from_service_account_info(SERVICE_ACCOUNT)
+            client = bigquery.Client.from_service_account_json('./adm-lake-1cfeab192f2e.json')
 
             datasets = list(client.list_datasets())
             if datasets:
