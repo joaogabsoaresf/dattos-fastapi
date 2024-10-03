@@ -80,7 +80,7 @@ def create_row(data: Dict[str, Any]):
         return {'status':'erro', 'errors':errors}
     return {'status':'success'}
 
-@app.post("/test/")
+@app.post("/alert/whatsapp/")
 def list_pending():
     client = BigQueryClient(table_id='adm-lake.CS_01_Raw.whastapp_registros', dataset_id='adm-lake.CS_01_Raw')
     message_thread = client.list_rows()
