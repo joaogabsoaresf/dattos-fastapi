@@ -23,7 +23,8 @@ def create_message(db: Session, message: schemas.MessageCreate):
         owner_phone=message.owner_phone,
         is_group=message.is_group,
         from_client=message.from_client,
-        message_time=message.message_time
+        message_time=message.message_time,
+        message=message.message
     )
     db.add(db_message)
     db.commit()

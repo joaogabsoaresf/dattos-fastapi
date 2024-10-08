@@ -12,6 +12,7 @@ class Messages(Base):
     owner_phone = Column(String,nullable=False)
     is_group = Column(Boolean,nullable=False,default=False)
     from_client = Column(Boolean,nullable=False,default=False)
+    message = Column(String,nullable=True)
     message_time = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
 
 class Sessions(Base):
