@@ -12,6 +12,15 @@ def more_than_twenty_four_hours(message_time):
     now = datetime.now(local_timezone)
     return now - date > timedelta(hours=24)
 
+def more_than_seventy_two_hours(message_time):
+    local_timezone = pytz.timezone('America/Sao_Paulo')
+    date = datetime.strptime(message_time, '%d/%m/%y %H:%M:%S')
+    date = local_timezone.localize(date)
+    if date.weekday() == 0:
+        now = datetime.now(local_timezone)
+        return now - date > timedelta(hours=72)
+    return False
+
 def bigquery_now():
     local_timezone = pytz.timezone('America/Sao_Paulo')
     now = datetime.now(local_timezone)
