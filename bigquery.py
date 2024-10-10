@@ -127,7 +127,7 @@ class BigQueryClient:
             "owner_name":data['owner_phone'],
             "client_name":data['contact_name'],
             "client_phone":data['client_phone'],
-            "message_time":utils.convert_time_bigquery(data['message_time']),
+            "message_time":utils.datetime_to_iso(data['message_time']),
             "alert_description":"Mensagem enviado pelo cliente está há mais de 24h sem retorno.",
             "trigger_event":"Registro de mensagem, fora de grupo, enviada pelo cliente sem retorno há mais de 24h",
             "message_content":data['message_content'],
