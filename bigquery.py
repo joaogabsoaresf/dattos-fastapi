@@ -31,10 +31,11 @@ class BigQueryClient:
         return client
 
     def insert_row(self, data):
-        row = [self.get_alert_row(data)]
+        row = [self.get_row(data)]
         errors = self.client.insert_rows_json(self.table_id, row)
         if errors == []:
             return
+        print(f'Error in BigQuery: {errors}')
         return errors
 
     def insert_row_alert(self, row):
