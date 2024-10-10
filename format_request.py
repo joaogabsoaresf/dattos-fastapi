@@ -9,7 +9,8 @@ class FormatMessage:
         self.is_group = data.get('isGroup') if data.get('isGroup') != None else False
         self.from_client = not data.get('fromMe') if data.get('fromMe') != None else False
         self.message_time = data.get('momment') if data.get('momment') else datetime.now()
-        self.message = data.get('text', {}).get('message', None) 
+        self.message = data.get('text', {}).get('message', None)
+        self.message_id = data.get('messageId', None)
         
     def message_fields(self):
         return {
@@ -21,6 +22,7 @@ class FormatMessage:
             "from_client":self.from_client,
             "message_time":self.message_time,
             "message":self.message,
+            "message_id":self.message_id,
         }
         
 class FormatSessions:

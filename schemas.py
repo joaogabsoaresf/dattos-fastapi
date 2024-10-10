@@ -10,6 +10,7 @@ class MessageBase(BaseModel):
     from_client: bool
     message: str
     message_time: datetime
+    message_id: str
     
 class MessageCreate(MessageBase):
     pass

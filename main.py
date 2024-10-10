@@ -85,13 +85,11 @@ def list_pending():
     client = BigQueryClient(table_id='adm-lake.CS_01_Raw.whastapp_registros', dataset_id='adm-lake.CS_01_Raw')
     message_thread = client.list_rows()
     alert_client = BigQueryClient(table_id='adm-lake.CS_01_Raw.Alertas_Whatsapp', dataset_id='adm-lake.CS_01_Raw')
-    print(message_thread)
     for message in message_thread:
         message['message_time_str'] = format_message_time(message['message_time'])
         if is_over_sla(message.get('message_time_str')):
             row_data = client.get_alert_row(message)
             alert_client.insert_row_alert(row_data)
-            print(row_data)
     return {'status':'success'}
 
 

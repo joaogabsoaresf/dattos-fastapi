@@ -14,6 +14,7 @@ class Messages(Base):
     from_client = Column(Boolean,nullable=False,default=False)
     message = Column(String,nullable=True)
     message_time = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
+    message_id = Column(String,nullable=True)
 
 class Sessions(Base):
     __tablename__ = 'sessions'

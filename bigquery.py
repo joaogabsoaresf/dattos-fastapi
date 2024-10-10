@@ -39,11 +39,32 @@ class BigQueryClient:
         return errors
 
     def insert_row_alert(self, row):
+        if self.check_message_exists(row['message_id']):
+            print(f"Message with ID {row['message_id']} already exists.")
+            return
+        
         errors = self.client.insert_rows_json(self.table_id, [row])
         if errors == []:
             return
         print(errors)
         return errors
+    
+    def check_message_exists(self, message_id):
+        query = f"""
+        SELECT COUNT(*) as count 
+        FROM `{self.table_id}` 
+        WHERE message_id = @message_id
+        """
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("message_id", "STRING", message_id)
+            ]
+        )
+        query_job = self.client.query(query, job_config=job_config)
+        results = query_job.result()
+        for row in results:
+            return row.count > 0
+        return False
     
     def get_row(self, data):
         row = {
@@ -55,6 +76,8 @@ class BigQueryClient:
             "client_phone":data['client_phone'],
             "user_name":data['user_name'],
             "contact_name":data['contact_name'],
+            "message_content":data['message'],
+            "message_id":data['message_id'],
         }
         return row
             
@@ -107,5 +130,7 @@ class BigQueryClient:
             "message_time":utils.convert_time_bigquery(data['message_time']),
             "alert_description":"Mensagem enviado pelo cliente está há mais de 24h sem retorno.",
             "trigger_event":"Registro de mensagem, fora de grupo, enviada pelo cliente sem retorno há mais de 24h",
+            "message_content":data['message_content'],
+            "message_id":data['message_id'],
         }
         return row
