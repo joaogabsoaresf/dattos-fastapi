@@ -28,3 +28,8 @@ def bigquery_now():
 
 def datetime_to_iso(datetime_object):
     return datetime_object.isoformat()
+
+def query_datetime_format(date):
+    formatted = date.replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S.%f')
+    return formatted
+

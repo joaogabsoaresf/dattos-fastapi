@@ -7,7 +7,7 @@ import crud, models, schemas
 from database import SessionLocal, engine
 from format_request import FormatMessage, FormatSessions
 from bigquery import BigQueryClient
-from utils import more_than_twenty_four_hours, more_than_seventy_two_hours
+from utils import more_than_twenty_four_hours, more_than_seventy_two_hours, query_datetime_format
 
 load_dotenv()
 
@@ -87,7 +87,7 @@ def list_pending():
     alert_client = BigQueryClient(table_id='adm-lake.CS_01_Raw.Alertas_Whatsapp', dataset_id='adm-lake.CS_01_Raw')
     for message in message_thread:
         message['message_time_str'] = format_message_time(message['message_time'])
-        if is_over_sla(message.get('message_time_str')):
+        if is_over_sla(message.get('message_time_str')) and not client.message_in_contact_window(message.get('client_phone'), query_datetime_format(message.get('message_time'))): 
             row_data = client.get_alert_row(message)
             alert_client.insert_row_alert(row_data)
     return {'status':'success'}
