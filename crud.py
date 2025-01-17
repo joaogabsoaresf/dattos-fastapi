@@ -26,6 +26,7 @@ def create_message(db: Session, message: schemas.MessageCreate):
         message_time=message.message_time,
         message=message.message,
         message_id=message.message_id,
+        client_id=message.client_id
     )
     db.add(db_message)
     db.commit()

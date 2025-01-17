@@ -78,6 +78,7 @@ class BigQueryClient:
             "contact_name":data['contact_name'],
             "message_content":data['message'],
             "message_id":data['message_id'],
+            "client_id":data['client_id']
         }
         return row
             
@@ -152,3 +153,24 @@ class BigQueryClient:
             "message_id":data['message_id'],
         }
         return row
+    
+    def search_client_phone(self, client_phone):
+        """
+        Busca o cliente pelo telefone no cadastro de clientes (Feito para a tabela de Cadastro de Clientes
+        id: `adm-lake.Public.Cadastro de Clientes`)
+        """
+        query = f"""
+        SELECT *
+        FROM `{self.table_id}`
+        WHERE Des_Tel_Sponsor = '{client_phone}'
+        OR Des_Telefone_Financeiro = '{client_phone}'
+        OR Des_Tel_Key_User = '{client_phone}'
+        """
+        return self.run_query(query)
+    
+    def get_all_clients(self):
+        query = f"""
+        SELECT *
+        FROM `{self.table_id}`
+        """
+        return self.run_query(query)

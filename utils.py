@@ -33,3 +33,8 @@ def query_datetime_format(date):
     formatted = date.replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S.%f')
     return formatted
 
+def convert_phone_number(phone_number):
+    return phone_number.replace(' ', '').replace('-', '')
+
+def is_phone_match(first_phone, second_phone):
+    return convert_phone_number(first_phone) == convert_phone_number(second_phone)

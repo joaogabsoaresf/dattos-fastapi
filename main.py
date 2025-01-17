@@ -8,6 +8,7 @@ from database import SessionLocal, engine
 from format_request import FormatMessage, FormatSessions
 from bigquery import BigQueryClient
 from utils import more_than_twenty_four_hours, more_than_seventy_two_hours, query_datetime_format
+import bigquery
 
 load_dotenv()
 

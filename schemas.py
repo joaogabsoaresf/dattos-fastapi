@@ -11,6 +11,7 @@ class MessageBase(BaseModel):
     message: str
     message_time: datetime
     message_id: str
+    client_id: str
     
 class MessageCreate(MessageBase):
     pass

@@ -110,3 +110,5 @@ venv.bak/
 .DS_Store
 
 __localcode
+
+emails
